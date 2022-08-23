@@ -45,7 +45,23 @@ router.put('/:id',async(req,res)=>{
         res.status(403).json(err)
     }
 });
-router.post('/find/:id', async(req,res)=>{
-
+router.post('/find/', verifyTokenAndAdmin,async(req,res)=>{
+    let qNew = req.query.new;
+    let qCategory = req.query.category;
+    let products;
+    try{
+        if(qNew){
+        products=    await  product.find().sort({createdAt:-1}).limit(5)
+        }
+        else if(qCategory){
+            products = await product.find({Categories:{$in:[qCategory]}})
+        }
+        else{
+            products = await product.find();
+        }
+        res.status(200).send(products)
+    }catch(err){
+        res.send(err)
+    }
 })
 module.exports = router

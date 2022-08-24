@@ -14,5 +14,5 @@ mongoose.connect(process.env.MONGO_URL).then(()=> console.log("Connection Succes
 .catch((err)=> console.log(err))
 app.listen((process.env.port  || 5000),(err)=>{
     if(err) throw err;
-    console.log("Listening at port 5000")
+    console.log("Listening at port "+process.env.port)
 })

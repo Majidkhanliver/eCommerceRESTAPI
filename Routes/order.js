@@ -49,10 +49,13 @@ router.post('/',verifyTokenAndAdmin,async(req,res)=>{
     router.put('/:id',verifyTokenAndAdmin,async(req,res)=>{
         try{
             let doc = order.findByIdAndUpdate(req.params.id,{$set:req.query},{new:true});
-            res.status(doc).send(doc)
+            console.log(doc)
+            res.status(201).json(doc)
+
         }catch(err)
         {
-            res.status(403).send(err)
+            console.log(err)
+            res.status(403).json(err)
         }
     })
 module.exports= router
